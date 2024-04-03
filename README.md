@@ -35,4 +35,12 @@ poetry run packge name `uvicorn` folder name `app.` file name `main` variable na
 `poetry run uvicorn app.main:todo_server --reload` 
 
 
+intigrate neon database
+
+create .env file in root folder and past key 
+
+create file in app folder setting.py
+
+
+
 
