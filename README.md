@@ -39,7 +39,25 @@ intigrate neon database
 
 create .env file in root folder and past key 
 
+```
 create file in app folder setting.py
+
+from starlette.config import Config
+from starlette.datastructures import Secret
+
+try:
+  config = Config(".env")
+
+except FileNotFoundError:
+   config = Config()
+
+DATABASE_URL = config("DATABASE_URL", cast = Secret)    
+
+```
+create file in root 
+.gitignore
+write .env 
+for not pushing in githib
 
 
 
