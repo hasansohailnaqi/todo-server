@@ -60,5 +60,17 @@ write .env
 for not pushing in githib
 
 
+# connection to database
+# create table in database
+# table data save and get
+# use sqlalcamy which is orm for sql postgresql for data validation
+# let start
 
+# add package
+`poetry add sqlmodel`
+`poetry add "psycopg[binary]"`
 
+```
+create schema
+in main.py 
+from sqlmodel SQLModel, Field

@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from sqlmodel import SQLModel, Field
 
 from app import setting
 
@@ -20,3 +21,21 @@ def hello():
 @todo_server.get("/db")
 def db_var():
     return {"DB": setting.DATABASE_URL}
+
+
+# connection to database
+# step1 table schema
+
+class todo(SQLModel):
+    
+
+
+
+
+# table data save and get
+# use sqlalcamy which is orm for sql postgresql for data validation
+# let start
+
+
+
+
