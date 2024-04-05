@@ -27,6 +27,8 @@ def db_var():
 # step1 table schema
 
 class todo(SQLModel):
+    id: int | None = Field(default=None, primary_key=True)
+    title: str
     
 
 
@@ -35,7 +37,4 @@ class todo(SQLModel):
 # table data save and get
 # use sqlalcamy which is orm for sql postgresql for data validation
 # let start
-
-
-
 
