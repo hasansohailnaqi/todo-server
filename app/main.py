@@ -1,7 +1,18 @@
 from fastapi import FastAPI
-from sqlmodel import SQLModel, Field
+from sqlmodel import SQLModel, Field, create_engine
 
 from app import setting
+
+# step1: Database table schema
+
+class Todo(SQLModel, table=True):
+   id: int | None = Field(default=None, primary_key=True)
+   title: str = "Create Todo Api"
+
+# connection to database
+connection_string: str = str(setting.DATABASE_URL)
+
+# engine = create_engine(setting.DATABASE_URL)   
 
 
 # declear veriable type object
@@ -17,18 +28,21 @@ todo_server: FastAPI = FastAPI()
 def hello():
     return {"hello":"world"}
 
-
+ 
 @todo_server.get("/db")
 def db_var():
-    return {"DB": setting.DATABASE_URL}
+  return {"DB": setting.DATABASE_URL, "connection": connection_string} 
 
 
-# connection to database
-# step1 table schema
 
-class todo(SQLModel):
-    id: int | None = Field(default=None, primary_key=True)
-    title: str
+
+
+
+
+
+
+
+
     
 
 
