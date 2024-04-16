@@ -30,7 +30,7 @@ def hello():
 
 ```
 check route 
-poetry run packge name `uvicorn` folder name `app.` file name `main` variable name `:todo_server --realod`
+poetry run packge name `uvicorn` folder name `app.` file name `main` variable name `:todo_server --reload`
 
 `poetry run uvicorn app.main:todo_server --reload` 
 

@@ -10,10 +10,16 @@ class Todo(SQLModel, table=True):
    title: str = "Create Todo Api"
 
 # connection to database
-connection_string: str = str(setting.DATABASE_URL)
+conn_str: str = str(setting.DATABASE_URL). replace(
+   "postgresql", "postgresql+psycopg" 
+)
 
-# engine = create_engine(setting.DATABASE_URL)   
+engine = create_engine(conn_str)   
 
+def create_db_tables():
+    print ("create_tb_tables")
+    SQLModel.metadata.create_all(engine)
+    print("done")
 
 # declear veriable type object
 
@@ -26,12 +32,13 @@ todo_server: FastAPI = FastAPI()
 
 @todo_server.get("/")
 def hello():
+    create_db_tables()
     return {"hello":"world"}
 
  
 @todo_server.get("/db")
 def db_var():
-  return {"DB": setting.DATABASE_URL, "connection": connection_string} 
+  return {"DB": setting.DATABASE_URL, "connection": abc} 
 
 
 
