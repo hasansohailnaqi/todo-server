@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 from sqlmodel import SQLModel, Field, create_engine
+from contextlib import asynccontextmanager
 
 from app import setting
 
@@ -21,9 +22,17 @@ def create_db_tables():
     SQLModel.metadata.create_all(engine)
     print("done")
 
+asynccontextmanager
+async def lifespan(app:FastAPI):
+   print("Server Startup")
+   create_db_tables
+   yield
+
+
+
 # declear veriable type object
 
-todo_server: FastAPI = FastAPI()
+todo_server: FastAPI = FastAPI(lifespan=lifespan)
 
 
 
@@ -38,7 +47,7 @@ def hello():
  
 @todo_server.get("/db")
 def db_var():
-  return {"DB": setting.DATABASE_URL, "connection": abc} 
+  return {"DB": setting.DATABASE_URL, "connection": conn_str} 
 
 
 
