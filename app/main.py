@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from sqlmodel import SQLModel, Field, create_engine
+from sqlmodel import SQLModel, Field, create_engine, Session
 from contextlib import asynccontextmanager
 
 from app import setting
@@ -22,8 +22,9 @@ def create_db_tables():
     SQLModel.metadata.create_all(engine)
     print("done")
 
-asynccontextmanager
-async def lifespan(app:FastAPI):
+@asynccontextmanager
+
+async def lifespan(todo_server:FastAPI):
    print("Server Startup")
    create_db_tables
    yield
@@ -32,7 +33,7 @@ async def lifespan(app:FastAPI):
 
 # declear veriable type object
 
-todo_server: FastAPI = FastAPI(lifespan=lifespan)
+todo_server: FastAPI = FastAPI(lifespan = lifespan)
 
 
 
@@ -52,6 +53,13 @@ def db_var():
 
 
 
+@todo_server.post("/todo")
+def create_todo(todo_data:Todo):
+   with session(engine) as session:
+      session.add(todo_data)
+      session.commit()
+      session.refresh(todo_data)
+      return todo_data
 
 
 
