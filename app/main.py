@@ -55,11 +55,11 @@ def db_var():
 
 @todo_server.post("/todo")
 def create_todo(todo_data:Todo):
-   with session(engine) as session:
-      session.add(todo_data)
-      session.commit()
-      session.refresh(todo_data)
-      return todo_data
+   with Session(engine) as session:
+       session.add(todo_data)
+       session.commit()
+       session.refresh(todo_data)
+       return todo_data
 
 
 
