@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from sqlmodel import SQLModel, Field, create_engine, Session
+from sqlmodel import SQLModel, Field, create_engine, Session, select
 from contextlib import asynccontextmanager
 
 from app import setting
@@ -62,8 +62,20 @@ def create_todo(todo_data:Todo):
        return todo_data
 
 
+# table data save and get
+# use sqlalcamy which is orm for sql postgresql for data validation
+# let start
 
 
+# Get all todos data
+
+@todo_server.get("/todo")
+def get_all_todos():
+   session = Session(engine)
+   # Todos Select
+   query = select(Todo)
+   all_todos = session.exec(query).all()
+   return all_todos
 
 
 
@@ -72,7 +84,4 @@ def create_todo(todo_data:Todo):
 
 
 
-# table data save and get
-# use sqlalcamy which is orm for sql postgresql for data validation
-# let start
 
