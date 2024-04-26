@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from sqlmodel import SQLModel, Field, create_engine, Session, select
+from sqlmodel import SQLModel, Field,  create_engine, Session, select
 from contextlib import asynccontextmanager
 
 from app import setting
@@ -8,7 +8,8 @@ from app import setting
 
 class Todo(SQLModel, table=True):
    id: int | None = Field(default=None, primary_key=True)
-   title: str = "Create Todo Api"
+   title: str = "msc3.0"
+   
 
 # connection to database
 conn_str: str = str(setting.DATABASE_URL). replace(
@@ -54,12 +55,14 @@ def db_var():
 
 
 @todo_server.post("/todo")
-def create_todo(todo_data:Todo):
+def create_todo(try_content:Todo):
    with Session(engine) as session:
-       session.add(todo_data)
+       session = Session(engine)
+       session.add(try_content)
        session.commit()
-       session.refresh(todo_data)
-       return todo_data
+       session.refresh(try_content)
+       session.close()
+       return try_content
 
 
 # table data save and get
@@ -69,13 +72,13 @@ def create_todo(todo_data:Todo):
 
 # Get all todos data
 
-@todo_server.get("/todo")
-def get_all_todos():
-   session = Session(engine)
-   # Todos Select
-   query = select(Todo)
-   all_todos = session.exec(query).all()
-   return all_todos
+# @todo_server.get("/todo")
+# def get_all_todos():
+#  with Session(engine) as session:
+#    # session = Session(engine)
+#    query = select(Todo)
+#    all_todos = session.exec(query).all()
+#    return all_todos
 
 
 
